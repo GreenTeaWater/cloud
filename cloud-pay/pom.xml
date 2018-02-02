@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.cloud.pay</groupId>
+  <artifactId>cloud-pay</artifactId>
+  <packaging>war</packaging>
+  <version>1.0.1-SNAPSHOT</version>
+  
+  <properties>
+  	<spring.version>4.3.11.RELEASE</spring.version>
+  </properties>
+  
+  <dependencies>
+  	  <dependency>
+  		 	<groupId>com.cloud.common</groupId>
+		  	<artifactId>cloud-common</artifactId>
+		  	<version>1.0.1-SNAPSHOT</version>
+  	  </dependency>
+	  <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		   <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-beans</artifactId>
+		   <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-web</artifactId>
+		   <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		   <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		   <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		   <version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.caucho</groupId>
+		    <artifactId>hessian</artifactId>
+		    <version>4.0.51</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-logging</groupId>
+		    <artifactId>commons-logging</artifactId>
+		    <version>1.2</version>
+		</dependency>
+	  
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>3.8.1</version>
+	      <scope>test</scope>
+	    </dependency>
+  </dependencies>
+  
+  <build>
+    <finalName>cloud-pay</finalName>
+    <plugins>
+    	<plugin>
+    		<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty-maven-plugin</artifactId>
+			<configuration>
+				<webAppConfig>
+					<contextPath>/cloud-pay</contextPath>
+				</webAppConfig>
+				<scanIntervalSeconds>10</scanIntervalSeconds>
+			</configuration>
+    	</plugin>
+    </plugins>
+  </build>
+</project>
