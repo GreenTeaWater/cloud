@@ -8,6 +8,8 @@
   
   <properties>
   	<spring.version>4.3.11.RELEASE</spring.version>
+  	<mybatis.version>3.2.1</mybatis.version>
+  	<filters.base.path.main>src/main/filters</filters.base.path.main>
   </properties>
   
   <dependencies>
@@ -56,6 +58,23 @@
 		    <artifactId>spring-context-support</artifactId>
 		   <version>${spring.version}</version>
 		</dependency>
+		<dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-jdbc</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+	     <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+           <!--  <scope>test</scope> -->
+        </dependency>
+         <!-- mybatis/spring包 -->
+	    <dependency>
+	        <groupId>org.mybatis</groupId>
+	        <artifactId>mybatis-spring</artifactId>
+	        <version>1.2.0</version>
+	    </dependency>
 		
 		<dependency>
 		    <groupId>com.caucho</groupId>
@@ -68,14 +87,73 @@
 		    <artifactId>commons-logging</artifactId>
 		    <version>1.2</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+		<dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.3.0</version>
+		</dependency>
+		
+		 <!-- MySql的包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.31</version>
+		</dependency>
+		
+		<!-- 日志相关jar包 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency><!--   Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+		
+		<dependency>  
+            <groupId>com.alibaba</groupId>  
+            <artifactId>fastjson</artifactId>  
+            <version>1.1.41</version>  
+        </dependency> 
+        <!-- alibaba data source 相关jar包-->
+       <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>druid</artifactId>
+          <version>0.2.23</version>
+       </dependency>
 	  
-	    <dependency>
-	      <groupId>junit</groupId>
-	      <artifactId>junit</artifactId>
-	      <version>3.8.1</version>
-	      <scope>test</scope>
+		<dependency>
+	        <groupId>org.mybatis</groupId>
+	        <artifactId>mybatis</artifactId>
+	        <version>${mybatis.version}</version>
 	    </dependency>
+		<dependency>
+		    <groupId>org.mybatis.generator</groupId>
+		    <artifactId>mybatis-generator-core</artifactId>
+		    <version>1.3.6</version>
+		</dependency>
+	
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	    <scope>test</scope>
+	</dependency>
   </dependencies>
+  
   
   <build>
     <finalName>cloud-pay</finalName>
@@ -90,6 +168,45 @@
 				<scanIntervalSeconds>10</scanIntervalSeconds>
 			</configuration>
     	</plugin>
+    	<plugin>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-maven-plugin</artifactId>
+			<configuration>
+				<verbose>true</verbose>
+				<overwrite>true</overwrite>
+			</configuration>
+		</plugin>
+		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-resources-plugin</artifactId>
+		    <configuration>
+		    	 <encoding>UTF-8</encoding>
+		    </configuration>
+	   </plugin>
     </plugins>
   </build>
+
+	<!-- 环境配置 -->
+	<profiles>
+  		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<filters>
+					<!-- 不同开发环境的配置 -->
+					<filter>${filters.base.path.main}/dev-filter.properties</filter>
+				</filters>
+				<resources>
+		          <resource> <!-- 配置需要被替换的资源文件路径, db.properties 应该在 src/main/resource 目录下 -->
+		            <directory>src/main/resources</directory>
+		            <filtering>true</filtering> <!-- 是否使用过滤器 -->
+		          </resource>
+		        </resources>
+			</build>
+		</profile>
+  	</profiles>
 </project>
+
+
