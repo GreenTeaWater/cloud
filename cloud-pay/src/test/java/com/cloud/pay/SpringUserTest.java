@@ -36,7 +36,7 @@ public class SpringUserTest {
 	@Test
 	public void test() throws SchedulerException{
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-quartz-test.xml");
-		SchedulerFactoryBean scheduler = (SchedulerFactoryBean) context.getBean("scheduler");
+		/*SchedulerFactoryBean scheduler = (SchedulerFactoryBean) context.getBean("scheduler");
 	
 		// 1、创建一个JobDetail实例，指定Quartz
         JobDetail jobDetail = JobBuilder.newJob(HelloQuartz.class)
@@ -63,7 +63,7 @@ public class SpringUserTest {
         scheduler.scheduleJob(jobDetail, trigger);
         
         scheduler.start();
-		
+		*/
 	}
 	
 }

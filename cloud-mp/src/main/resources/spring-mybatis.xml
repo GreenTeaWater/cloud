@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	    xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd"> 
+	 
+	  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+	  <!-- 	<property name="driverClass"></property>   alibaba能根据url自动识别数据库驱动 -->
+	 	<property name="url" value="${db.host}"></property>
+	 	<property name="username" value="${db.login.name}"></property>
+	 	<property name="password" value="${db.login.password}"></property>
+	 </bean>	
+	 
+	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  	<property name="dataSource" ref="dataSource"></property>
+	  	<property name="mapperLocations" value="classpath*:mapping/*"></property>
+	  </bean>
+	 
+	 <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	 	<property name="basePackage" value="com.cloud.mp.dao"></property>
+	 	<!-- annotationClass属性参数说明:
+	 				如果有值就会扫描basePackage包下有此注解的类生成代理对象加入spring管理，并绑定数据库mapper对象。
+	 				如果空值默认将basePackage包下全部的类生成代理对象加入spring管理，但是如果没有此接口的对应的mappper.xml文件，调用后会报Invalid bound statement:（无效的绑定语句）异常-->
+	 	<property name="annotationClass" value="org.springframework.stereotype.Repository"></property>
+	 	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	 </bean>
+					   
+</beans>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	   					   "> 
+	   					   
+	<bean id="dayCutJob" class="com.cloud.mp.common.job.DayCutJobImpl"></bean>   					   
+	
+	<bean id="dayCutJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+         <property name="jobClass" value="com.cloud.mp.common.job.DayCutJobImpl"/>
+         <property name="durability" value="true"/>
+    </bean>
+					
+	<bean id="dayCutTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="dayCutJobDetail"></property>
+		<property name="cronExpression" value="0/2 * * * * ?"></property> 
+	</bean>   		 
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+		<property name="schedulerName" value="dayCutSchedulerName"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:quartz/quartz.properties"></property>
+		<property name="triggers">
+			<list>
+				<ref bean="dayCutTrigger"/>
+			</list>
+		</property>
+	</bean> 
+			   
+</beans>

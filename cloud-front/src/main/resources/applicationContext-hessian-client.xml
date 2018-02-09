@@ -15,6 +15,11 @@
 	<bean id="paymentAppService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
 		<property name="serviceUrl" value="${cloud-pay}/paymentAppService"></property>
 		<property name="serviceInterface" value="com.cloud.common.pay.app.PaymentAppService"></property>
-	</bean>	    
+	</bean>	   
+	
+	<bean id="personalAppService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="${cloud-mp}/personalAppService"></property>
+		<property name="serviceInterface" value="com.cloud.common.mp.app.PersonalAppService"></property>
+	</bean>	 
 	    
 </beans>

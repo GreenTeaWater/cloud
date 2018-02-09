@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.cloud.common.mp.app.PersonalAppService;
+import com.cloud.common.mp.dto.PersonalDTO;
 import com.cloud.common.pay.common.dto.PaymentOrderDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -17,15 +19,22 @@ public class TradeServiceTest {
 	@Qualifier("tradeService")
 	private TradeService tradeService ;
 	
+	@Autowired
+	private PersonalAppService personalAppService ;
+	
 	@Test
 	public void payment(){
 		
-		PaymentOrderDTO paymentOrderDTO = new PaymentOrderDTO() ;
-		paymentOrderDTO.setId("100");
-		paymentOrderDTO.setName("zhaofx");
+//		PaymentOrderDTO paymentOrderDTO = new PaymentOrderDTO() ;
+//		paymentOrderDTO.setId("100");
+//		paymentOrderDTO.setName("zhaofx");
+//		
+//		paymentOrderDTO = tradeService.payment(paymentOrderDTO);
+//		System.out.println(paymentOrderDTO);
 		
-		paymentOrderDTO = tradeService.payment(paymentOrderDTO);
-		System.out.println(paymentOrderDTO);
+		PersonalDTO personalDTO = personalAppService.selectById(1);
+		System.out.println(personalDTO);
+		
 	}
 	
 }
